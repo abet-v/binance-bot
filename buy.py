@@ -14,7 +14,6 @@ print("Balance dispinible : " + str(balance['free']) + "USDT")
 moneyToBuyInUSDT = calculator.get_top_moneyToBuyInUSDT(
     float(balance['free']), config.strategyTop)
 moneyBuyInCoin = calculator.get_empty_moneydict()
-conti = False
 for coin, value in moneyToBuyInUSDT.items():
     try:
         info = client.get_symbol_info(coin+'USDT')
