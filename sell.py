@@ -14,7 +14,7 @@ print("Going to sell (in coin)")
 print(moneyToSellInCoin)
 for coin, value in moneyToSellInCoin.items():
     try:
-        print("Selling coin :" + coin + " value " + str(value))
+        print("Selling " + coin + " : " + str(value))
         order = client.order_market_sell(
             symbol=coin+'USDT',
             quantity=value)
@@ -26,6 +26,7 @@ for coin, value in moneyToSellInUSDT.items():
     balanceYesterday += value
 balance = client.get_asset_balance(asset='USDT')
 
-print("Yesterday :" + balanceYesterday)
-print("Today :" + balance)
-print("Variation :" + balanceYesterday / balance * 100 - 100)
+print("Yesterday :" + str(balanceYesterday))
+print("Today :" + str(balance['free']))
+print("Variation :" +
+      str((float(balance['free']) - balanceYesterday / balanceYesterday) * 100) + "%")

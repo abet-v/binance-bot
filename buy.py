@@ -18,7 +18,7 @@ for coin, value in moneyToBuyInUSDT.items():
     try:
         info = client.get_symbol_info(coin+'USDT')
         valueWithPrecision = round(value, info['quoteAssetPrecision'])
-        print("Achat de " + coin + " : " +
+        print("Buying " + coin + " : " +
               str(valueWithPrecision) + " USDT")
         order = client.order_market_buy(
             symbol=coin+'USDT', quoteOrderQty=valueWithPrecision)
