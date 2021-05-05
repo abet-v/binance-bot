@@ -1,14 +1,14 @@
 from binance.client import Client
 import binance.exceptions
 import config
-import calculator
 import json
 import datetime
 
+yesterday = datetime.date.today() - datetime.timedelta(days=1)
 today = datetime.date.today()
 client = Client(config.apiKey, config.apiSecurity)
 
-with open('./logs/'+today.strftime("%Y-%m-%d")+'_data.json') as json_file:
+with open('./logs/'+yesterday.strftime("%Y-%m-%d")+'_data.json') as json_file:
     data = json.load(json_file)
     moneyToSellInCoin = data[0]
     moneyToSellInUSDT = data[1]
@@ -21,7 +21,7 @@ for coin, value in moneyToSellInUSDT.items():
         try:
             balance = client.get_asset_balance(asset=coin)
             avg_price = client.get_avg_price(symbol=coin+'USDT')
-            owned = float(balance['free']) * float(avg_price['price'])
+            owned = float(moneyToSellInCoin[coin]) * float(avg_price['price'])
             totalBefore += value
             totalAfter += owned
             std = ((owned - value) / value) * 100
