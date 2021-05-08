@@ -4,11 +4,14 @@ import config
 import calculator
 import json
 import datetime
+from datetime import date, timedelta
+
 
 today = datetime.date.today()
+yesterday = date.today() - timedelta(days=1)
 client = Client(config.apiKey, config.apiSecurity)
 
-with open('./logs/'+today.strftime("%Y-%m-%d")+'_data.json') as json_file:
+with open('./logs/'+yesterday.strftime("%Y-%m-%d")+'_data.json') as json_file:
     data = json.load(json_file)
     moneyToSellInCoin = data[0]
     moneyToSellInUSDT = data[1]

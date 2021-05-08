@@ -3,10 +3,14 @@ from binance.client import Client
 import config
 import binance.exceptions
 from datetime import date, timedelta
+import os
+
+dirname = os.path.dirname(__file__)
+logdir = os.path.join(dirname, 'logs')
 
 client = Client(config.apiKey, config.apiSecurity)
 yesterday = date.today() - timedelta(days=1)
-with open('./logs/'+yesterday.strftime("%Y-%m-%d")+'_data.json') as json_file:
+with open(logdir+yesterday.strftime("%Y-%m-%d")+'_data.json') as json_file:
     data = json.load(json_file)
     moneyToSellInCoin = data[0]
     moneyToSellInUSDT = data[1]
@@ -29,4 +33,4 @@ balance = client.get_asset_balance(asset='USDT')
 print("Yesterday :" + str(balanceYesterday))
 print("Today :" + str(balance['free']))
 print("Variation :" +
-      str((float(balance['free']) - balanceYesterday / balanceYesterday) * 100) + "%")
+      str(((float(balance['free']) - balanceYesterday) / balanceYesterday) * 100) + "%")
