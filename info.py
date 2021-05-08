@@ -1,12 +1,12 @@
 from binance.client import Client
 import binance.exceptions
 import config
-import calculator
 import json
 import datetime
 from datetime import date, timedelta
 
 
+yesterday = datetime.date.today() - datetime.timedelta(days=1)
 today = datetime.date.today()
 yesterday = date.today() - timedelta(days=1)
 client = Client(config.apiKey, config.apiSecurity)
@@ -24,7 +24,7 @@ for coin, value in moneyToSellInUSDT.items():
         try:
             balance = client.get_asset_balance(asset=coin)
             avg_price = client.get_avg_price(symbol=coin+'USDT')
-            owned = float(balance['free']) * float(avg_price['price'])
+            owned = float(moneyToSellInCoin[coin]) * float(avg_price['price'])
             totalBefore += value
             totalAfter += owned
             std = ((owned - value) / value) * 100

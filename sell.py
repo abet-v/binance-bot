@@ -33,4 +33,4 @@ balance = client.get_asset_balance(asset='USDT')
 print("Yesterday :" + str(balanceYesterday))
 print("Today :" + str(balance['free']))
 print("Variation :" +
-      str(((float(balance['free']) - balanceYesterday) / balanceYesterday) * 100) + "%")
+      str((float(balance['free']) - float(balanceYesterday) / float(balanceYesterday)) * 100) + "%")
