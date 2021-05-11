@@ -19,6 +19,7 @@ print("Info for coins :")
 print(moneyToSellInCoin)
 totalBefore = 0
 totalAfter = 0
+moneydict =  {}
 for coin, value in moneyToSellInUSDT.items():
     if value > 0:
         try:
@@ -27,6 +28,7 @@ for coin, value in moneyToSellInUSDT.items():
             owned = float(moneyToSellInCoin[coin]) * float(avg_price['price'])
             totalBefore += value
             totalAfter += owned
+            moneydict[coin] = {'coin': coin, 'usdt_buyed': round(value, 2), 'usdt_now': round(owned, 2), 'std': round(std,2)}
             std = ((owned - value) / value) * 100
             print(coin + ' Buyed ' + str(round(value, 2)) + ' USDT is now ' +
                   str(round(owned, 2)) + ' USDT var : ' + str(round(std, 2)) + '%')
@@ -37,3 +39,5 @@ print("############################")
 print('TOTAL Buyed ' + str(round(totalBefore, 2)) + ' USDT is now ' +
       str(round(totalAfter, 2)) + ' USDT var : ' + str(round(totalStd, 2)) + '%')
 print("############################")
+print(moneydict)
+            
