@@ -22,7 +22,7 @@ print("Info for coins :")
 print(moneyToSellInCoin)
 totalBefore = 0
 totalAfter = 0
-moneydict =  {}
+moneydict =  {'best': {'std': 0}, 'worst': {'std': 0}}
 for coin, value in moneyToSellInUSDT.items():
     if value > 0:
         try:
@@ -32,7 +32,12 @@ for coin, value in moneyToSellInUSDT.items():
             totalBefore += value
             totalAfter += owned
             std = ((owned - value) / value) * 100
-            moneydict[coin] = {'coin': coin, 'usdt_buyed': round(value, 2), 'usdt_now': round(owned, 2), 'std': round(std,2)}
+            infos = {'coin': coin, 'usdt_buyed': round(value, 2), 'usdt_now': round(owned, 2), 'std': round(std,2)}
+            moneydict[coin] = infos
+            if std > moneydict['best']['std']:
+                moneydict['best'] = infos
+            if std < moneydict['worst']['std']:
+                moneydict['worst'] = infos
             print(coin + ' Buyed ' + str(round(value, 2)) + ' USDT is now ' +
                   str(round(owned, 2)) + ' USDT var : ' + str(round(std, 2)) + '%')
         except binance.exceptions.BinanceAPIException as error:
