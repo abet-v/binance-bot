@@ -31,5 +31,5 @@ for coin, value in moneyToBuyInUSDT.items():
         print(error.message)
 
 logs = [moneyBuyInCoin, moneyToBuyInUSDT]
-with open(logdir+today.strftime("%Y-%m-%d")+'_data.json', 'w') as outfile:
+with open(logdir + '/' + today.strftime("%Y-%m-%d")+'_data.json', 'w') as outfile:
     json.dump(logs, outfile)

@@ -10,7 +10,7 @@ logdir = os.path.join(dirname, 'logs')
 
 client = Client(config.apiKey, config.apiSecurity)
 yesterday = date.today() - timedelta(days=1)
-with open(logdir+yesterday.strftime("%Y-%m-%d")+'_data.json') as json_file:
+with open(logdir + '/' + yesterday.strftime("%Y-%m-%d")+'_data.json') as json_file:
     data = json.load(json_file)
     moneyToSellInCoin = data[0]
     moneyToSellInUSDT = data[1]

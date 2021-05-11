@@ -14,7 +14,7 @@ today = datetime.date.today()
 yesterday = date.today() - timedelta(days=1)
 client = Client(config.apiKey, config.apiSecurity)
 
-with open(logdir+yesterday.strftime("%Y-%m-%d")+'_data.json') as json_file:
+with open(logdir +  '/' + today.strftime("%Y-%m-%d")+'_data.json') as json_file:
     data = json.load(json_file)
     moneyToSellInCoin = data[0]
     moneyToSellInUSDT = data[1]
@@ -31,8 +31,8 @@ for coin, value in moneyToSellInUSDT.items():
             owned = float(moneyToSellInCoin[coin]) * float(avg_price['price'])
             totalBefore += value
             totalAfter += owned
-            moneydict[coin] = {'coin': coin, 'usdt_buyed': round(value, 2), 'usdt_now': round(owned, 2), 'std': round(std,2)}
             std = ((owned - value) / value) * 100
+            moneydict[coin] = {'coin': coin, 'usdt_buyed': round(value, 2), 'usdt_now': round(owned, 2), 'std': round(std,2)}
             print(coin + ' Buyed ' + str(round(value, 2)) + ' USDT is now ' +
                   str(round(owned, 2)) + ' USDT var : ' + str(round(std, 2)) + '%')
         except binance.exceptions.BinanceAPIException as error:
