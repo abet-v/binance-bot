@@ -42,5 +42,6 @@ print("############################")
 print('TOTAL Buyed ' + str(round(totalBefore, 2)) + ' USDT is now ' +
       str(round(totalAfter, 2)) + ' USDT var : ' + str(round(totalStd, 2)) + '%')
 print("############################")
-print(moneydict)
+money_json = json.dumps(moneydict)
+print(money_json)
             
