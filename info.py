@@ -4,14 +4,17 @@ import config
 import json
 import datetime
 from datetime import date, timedelta
+import os
 
+dirname = os.path.dirname(__file__)
+logdir = os.path.join(dirname, 'logs')
 
 yesterday = datetime.date.today() - datetime.timedelta(days=1)
 today = datetime.date.today()
 yesterday = date.today() - timedelta(days=1)
 client = Client(config.apiKey, config.apiSecurity)
 
-with open('./logs/'+yesterday.strftime("%Y-%m-%d")+'_data.json') as json_file:
+with open(logdir+yesterday.strftime("%Y-%m-%d")+'_data.json') as json_file:
     data = json.load(json_file)
     moneyToSellInCoin = data[0]
     moneyToSellInUSDT = data[1]
