@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 
 
 def get_money_name_for_index(index):
+    has_money = False
     # url = 'http://anovamoeda.oinvestidordesucesso.com/IS/nmREPORT.asp?NM=2'
     cookies = {
         'ASPSESSIONIDCSTDQQCQ': 'FCKNJKGDGDHEFFFNFHDDKIJO',
@@ -20,13 +21,20 @@ def get_money_name_for_index(index):
     params = (
         ('NM', index),
     )
-    response = requests.get('http://anovamoeda.oinvestidordesucesso.com/IS/nmREPORT.asp',
-                            headers=headers, params=params, cookies=cookies, verify=False)
-
-    soup = BeautifulSoup(response.text, 'lxml')
-    tds = soup.findAll('td')
-    moedas = [tds[8].text, tds[14].text,
-              tds[20].text, tds[26].text, tds[32].text]
+    while has_money == False:
+        try:
+            response = requests.get('http://anovamoeda.oinvestidordesucesso.com/IS/nmREPORT.asp',
+                                    headers=headers, params=params, cookies=cookies, verify=False)
+            soup = BeautifulSoup(response.text, 'lxml')
+            tds = soup.findAll('td')
+            moedas = [tds[8].text, tds[14].text,
+                      tds[20].text, tds[26].text, tds[32].text]
+            has_money = True
+        except KeyError:
+            print("Cannot retrive NM" + str(index) + "... retrying")
+            continue
+        except IndexError:
+            print("Cannot retrieve NM" + str(index) + "...")
     return moedas
 
 
