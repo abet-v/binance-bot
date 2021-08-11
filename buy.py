@@ -4,6 +4,10 @@ import config
 import calculator
 import json
 import datetime
+import os
+
+dirname = os.path.dirname(__file__)
+logdir = os.path.join(dirname, 'logs')
 
 today = datetime.date.today()
 client = Client(config.apiKey, config.apiSecurity)
@@ -27,5 +31,5 @@ for coin, value in moneyToBuyInUSDT.items():
         print(error.message)
 
 logs = [moneyBuyInCoin, moneyToBuyInUSDT]
-with open('./logs/'+today.strftime("%Y-%m-%d")+'_data.json', 'w') as outfile:
+with open(logdir + '/' + today.strftime("%Y-%m-%d")+'_data.json', 'w') as outfile:
     json.dump(logs, outfile)
